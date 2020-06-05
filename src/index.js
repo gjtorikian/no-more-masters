@@ -62,7 +62,6 @@ These are DESTRUCTIVE actions!
       return;
     }
 
-    this.log(`Modifying https://api.github.com/repos/${nwo} ...`);
     try {
       const data = { default_branch: "production" };
       const options = {
@@ -77,6 +76,22 @@ These are DESTRUCTIVE actions!
       this.error(
         util.inspect(e.response.data, { showHidden: false, depth: null })
       );
+      return;
+    }
+
+    try {
+      const { stdout } = await execa("git", ["branch", "-D", "master"]);
+      console.log(stdout);
+    } catch (error) {
+      this.error(error);
+      return;
+    }
+
+    try {
+      const { stdout } = await execa("git", ["push", "origin", ":master"]);
+      console.log(stdout);
+    } catch (error) {
+      this.error(error);
       return;
     }
 
