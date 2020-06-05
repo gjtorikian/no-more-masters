@@ -1,7 +1,7 @@
 {
   "name": "no-more-masters",
   "description": "Rename your default Git branch from master to production",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Garen J. Torikian",
   "bin": {
     "no-more-masters": "./bin/run"
@@ -12,6 +12,7 @@
     "@oclif/config": "^1.15.1",
     "@oclif/plugin-help": "^3.1.0",
     "axios": "^0.19.2",
+    "cli-ux": "^5.4.6",
     "execa": "^4.0.2",
     "parse-repo": "^1.0.4"
   },
