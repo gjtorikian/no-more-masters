@@ -1,0 +1,50 @@
+{
+  "name": "no-more-masters",
+  "description": "Rename your default git branches from master to production",
+  "version": "0.0.0",
+  "author": "Garen J. Torikian",
+  "bin": {
+    "nmm": "./bin/run"
+  },
+  "bugs": "https://github.com/gjtorikian/no-more-masters/issues",
+  "dependencies": {
+    "@oclif/command": "^1.6.1",
+    "@oclif/config": "^1.15.1",
+    "@oclif/plugin-help": "^3.1.0",
+    "axios": "^0.19.2",
+    "execa": "^4.0.2",
+    "parse-repo": "^1.0.4"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "@oclif/test": "^1.2.6",
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0",
+    "mocha": "^5.2.0",
+    "nyc": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/src"
+  ],
+  "homepage": "https://github.com/gjtorikian/no-more-masters",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "bin": "nmm"
+  },
+  "repository": "gjtorikian/no-more-masters",
+  "scripts": {
+    "posttest": "eslint .",
+    "prepack": "oclif-dev readme",
+    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
