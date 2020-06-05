@@ -1,6 +1,6 @@
 # no-more-masters
 
-Rename your default git branch from master to production.
+Rename your default Git branch from master to production.
 
 ## Install
 
