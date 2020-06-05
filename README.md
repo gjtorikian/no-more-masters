@@ -12,4 +12,4 @@ $ npm install -g no-more-masters
 
 ```
 $ no-more-masters
-```$
+```
