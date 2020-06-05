@@ -100,7 +100,7 @@ These are DESTRUCTIVE actions!
 }
 
 nomoremastersCommand.description =
-  "Use this script to rename your default Git branches from `master` to `production`";
+  "Use this script to rename your default Git branch from `master` to `production`";
 
 nomoremastersCommand.flags = {
   // add --version flag to show CLI version

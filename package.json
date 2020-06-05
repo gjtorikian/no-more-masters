@@ -1,10 +1,10 @@
 {
   "name": "no-more-masters",
-  "description": "Rename your default git branches from master to production",
-  "version": "0.0.1",
+  "description": "Rename your default Git branch from master to production",
+  "version": "0.0.2",
   "author": "Garen J. Torikian",
   "bin": {
-    "nmm": "./bin/run"
+    "no-more-masters": "./bin/run"
   },
   "bugs": "https://github.com/gjtorikian/no-more-masters/issues",
   "dependencies": {
@@ -38,7 +38,7 @@
   "license": "MIT",
   "main": "src/index.js",
   "oclif": {
-    "bin": "nmm"
+    "bin": "no-more-masters"
   },
   "repository": "gjtorikian/no-more-masters",
   "scripts": {
