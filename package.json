@@ -1,7 +1,7 @@
 {
   "name": "no-more-masters",
   "description": "Rename your default git branches from master to production",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Garen J. Torikian",
   "bin": {
     "nmm": "./bin/run"
