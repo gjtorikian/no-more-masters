@@ -90,9 +90,10 @@ These are DESTRUCTIVE actions!
     try {
       const { stdout } = await execa("git", ["push", "origin", ":master"]);
       console.log(stdout);
-    } catch (error) {
-      this.error(error);
-      return;
+    } catch (e) {
+      this
+        .log(`I couldn't delete the master branch on GitHub, probably because it has branch protection.
+Here's what they said: ${e}`);
     }
 
     this.log(`All done! PS: GitHub, drop ICE 🤗`);
