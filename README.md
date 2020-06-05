@@ -2,6 +2,8 @@
 
 Rename your default Git branch from master to production.
 
+This script requires that you have [a GitHub authorization token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line). As well, if you have branch protections enabled for `master`, consider turning them off so that the script can remove the branch from your remote repo.
+
 ## Install
 
 ```
