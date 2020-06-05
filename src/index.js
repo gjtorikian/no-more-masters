@@ -48,7 +48,6 @@ These are DESTRUCTIVE actions!
         "production",
         "master",
       ]);
-      console.log(stdout);
     } catch (error) {
       this.error(error);
       return;
@@ -56,11 +55,12 @@ These are DESTRUCTIVE actions!
 
     try {
       const { stdout } = await execa("git", ["push", "origin", "production"]);
-      console.log(stdout);
     } catch (error) {
       this.error(error);
       return;
     }
+
+    this.log("Created production and pushed it up...");
 
     try {
       const data = { default_branch: "production" };
@@ -79,6 +79,8 @@ These are DESTRUCTIVE actions!
       return;
     }
 
+    this.log("Set GitHub branch to production ...");
+
     try {
       const { stdout } = await execa("git", ["branch", "-D", "master"]);
       console.log(stdout);
@@ -89,11 +91,10 @@ These are DESTRUCTIVE actions!
 
     try {
       const { stdout } = await execa("git", ["push", "origin", ":master"]);
-      console.log(stdout);
     } catch (e) {
       this
-        .log(`I couldn't delete the master branch on GitHub, probably because it has branch protection.
-Here's what they said: ${e}`);
+        .log(`\n*** I could not delete the master branch on GitHub! Probably because it has branch protection...
+Here's what they said:\n${e}\n\n`);
     }
 
     this.log(`All done! PS: GitHub, drop ICE 🤗`);
