@@ -54,13 +54,15 @@ class NoMoreMastersCommand extends Command {
       type: "hide",
     });
 
+    this.log("Fetching origin...");
     try {
-      const { stdout } = await execa("git", [
-        "checkout",
-        "-b",
-        branch,
-        "master",
-      ]);
+      await execa("git", ["fetch", "origin"]);
+    } catch (error) {
+      this.error(error);
+    }
+
+    try {
+      await execa("git", ["checkout", "-b", branch, "origin/master"]);
     } catch (error) {
       this.error(error);
     }
@@ -98,7 +100,7 @@ class NoMoreMastersCommand extends Command {
       this.error(error);
     }
 
-    this.log(`Deleting \`${branch}\` on ${host} ...`);
+    this.log(`Deleting \`master\` on ${host} ...`);
     try {
       await execa("git", ["push", "origin", ":master"]);
     } catch (e) {

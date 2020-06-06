@@ -17,6 +17,7 @@
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
     "@oclif/plugin-help": "^3.1.0",
+    "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "axios": "^0.19.2",
     "cli-ux": "^5.4.6",
     "execa": "^4.0.2",
@@ -31,6 +32,11 @@
     "mocha": "^5.2.0",
     "nyc": "^14.1.1"
   },
+  "oclif": {
+    "plugins": [
+      "@oclif/plugin-warn-if-update-available"
+    ]
+  },
   "engines": {
     "node": ">=8.0.0"
   },
@@ -39,9 +45,6 @@
     "/src"
   ],
   "homepage": "https://github.com/gjtorikian/no-more-masters",
-  "keywords": [
-    "oclif"
-  ],
   "license": "MIT",
   "main": "src/index.js",
   "oclif": {
