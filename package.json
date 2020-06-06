@@ -1,7 +1,7 @@
 {
   "name": "no-more-masters",
   "description": "Rename your default Git branch from master to production",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "keywords": [
     "git",
     "rename",
