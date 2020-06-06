@@ -75,6 +75,17 @@ class NoMoreMastersCommand extends Command {
       this.error(error);
     }
 
+    try {
+      const { stdout } = await execa("git", [
+        "branch",
+        "--set-upstream-to",
+        `origin/${branch}`,
+      ]);
+      this.log(stdout);
+    } catch (error) {
+      this.error(error);
+    }
+
     this.log(`Setting ${host} branch to \`${branch}\` ...`);
 
     try {
