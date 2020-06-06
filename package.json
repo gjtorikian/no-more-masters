@@ -1,7 +1,13 @@
 {
   "name": "no-more-masters",
   "description": "Rename your default Git branch from master to production",
-  "version": "0.0.5",
+  "version": "0.1.0",
+  "keywords": [
+    "git",
+    "rename",
+    "master",
+    "anti-racist"
+  ],
   "author": "Garen J. Torikian",
   "bin": {
     "no-more-masters": "./bin/run"

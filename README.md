@@ -14,8 +14,12 @@ $ npm install -g no-more-masters
 
 ```
 $ no-more-masters
-```
 
+OPTIONS
+  -b, --branch=branch  [default: production] The branch name to create
+  -h, --help           show CLI help
+  -v, --version        show CLI version
+```
 
 ## What is this doing?
 

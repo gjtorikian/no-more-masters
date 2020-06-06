@@ -5,30 +5,43 @@ const axios = require("axios");
 const parseRepo = require("parse-repo");
 const util = require("util");
 
-class nomoremastersCommand extends Command {
+class NoMoreMastersCommand extends Command {
   async run() {
-    const { flags } = this.parse(nomoremastersCommand);
+    const { flags } = this.parse(NoMoreMastersCommand);
 
-    let origin = "";
+    // check branch
+    const branch = flags.branch;
     try {
-      const { stdout } = await execa("git", ["remote", "get-url", "origin"]);
-      origin = stdout;
+      await execa("git", ["check-ref-format", "--branch", branch]);
     } catch (error) {
       this.error(error);
+    }
+
+    // check origin
+    let origin;
+    try {
+      origin = (await execa("git", ["remote", "get-url", "origin"])).stdout;
+    } catch (error) {
+      this.error(error);
+    }
+
+    const parsedRepo = parseRepo(origin);
+    const nwo = parsedRepo.repository;
+    const host = parsedRepo.host;
+
+    if (host != "github.com") {
+      this.log(
+        "Ah! Sorry. This tool only works for repositories on GitHub.com for now."
+      );
       return;
     }
 
-    const nwo = parseRepo(origin).repository;
-
-    this
-      .log(`This script will create a new branch off of master called production.
-
-It will then set production as the default branch on GitHub, and then delete the master branch.
-
-This will modify the ${nwo} repository.
-
-These are DESTRUCTIVE actions!
-  `);
+    this.log(
+      `This script will create a new branch off of \`master\` called \`${branch}\`.\n\n` +
+        `It will then set \`${branch}\` as the default branch, and delete the \`master\` branch.\n` +
+        `\nThis will modify the \`${nwo}\` repository on ${host}.\n` +
+        "\n*** These are DESTRUCTIVE actions! ***\n"
+    );
     const choice = await cli.prompt("Do you understand [y/n]?");
     if (choice != "y") {
       this.log(
@@ -45,25 +58,25 @@ These are DESTRUCTIVE actions!
       const { stdout } = await execa("git", [
         "checkout",
         "-b",
-        "production",
+        branch,
         "master",
       ]);
     } catch (error) {
       this.error(error);
-      return;
     }
 
+    this.log(`Creating \`${branch}\` and pushing it up...`);
+
     try {
-      const { stdout } = await execa("git", ["push", "origin", "production"]);
+      await execa("git", ["push", "origin", branch]);
     } catch (error) {
       this.error(error);
-      return;
     }
 
-    this.log("Created production and pushed it up...");
+    this.log(`Setting ${host} branch to \`${branch}\` ...`);
 
     try {
-      const data = { default_branch: "production" };
+      const data = { default_branch: branch };
       const options = {
         method: "PATCH",
         headers: { Authorization: `token ${token}` },
@@ -76,39 +89,39 @@ These are DESTRUCTIVE actions!
       this.error(
         util.inspect(e.response.data, { showHidden: false, depth: null })
       );
-      return;
     }
-
-    this.log("Set GitHub branch to production ...");
 
     try {
       const { stdout } = await execa("git", ["branch", "-D", "master"]);
       console.log(stdout);
     } catch (error) {
       this.error(error);
-      return;
     }
 
+    this.log(`Deleting \`${branch}\` on ${host} ...`);
     try {
-      const { stdout } = await execa("git", ["push", "origin", ":master"]);
+      await execa("git", ["push", "origin", ":master"]);
     } catch (e) {
       this
         .log(`\n*** I could not delete the master branch on GitHub! Probably because it has branch protection...
 Here's what they said:\n${e}\n\n`);
     }
 
-    this.log(`All done! PS: GitHub, drop ICE 🤗`);
+    this.log(`\nAll done! PS: GitHub, drop ICE 🤗`);
   }
 }
 
-nomoremastersCommand.description =
+NoMoreMastersCommand.description =
   "Use this script to rename your default Git branch from `master` to `production`";
 
-nomoremastersCommand.flags = {
-  // add --version flag to show CLI version
+NoMoreMastersCommand.flags = {
   version: flags.version({ char: "v" }),
-  // add --help flag to show CLI version
   help: flags.help({ char: "h" }),
+  branch: flags.string({
+    char: "b",
+    description: "The branch name to create",
+    default: "production",
+  }),
 };
 
-module.exports = nomoremastersCommand;
+module.exports = NoMoreMastersCommand;
