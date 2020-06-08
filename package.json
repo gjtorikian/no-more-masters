@@ -1,7 +1,7 @@
 {
   "name": "no-more-masters",
   "description": "Rename your default Git branch from master to production",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "keywords": [
     "blm",
     "git",
@@ -35,6 +35,7 @@
     "nyc": "^14.1.1"
   },
   "oclif": {
+    "bin": "no-more-masters",
     "plugins": [
       "@oclif/plugin-warn-if-update-available"
     ]
@@ -47,11 +48,8 @@
     "/src"
   ],
   "homepage": "https://github.com/gjtorikian/no-more-masters",
-  "license": "MIT",
+  "license": "Unlicense",
   "main": "src/index.js",
-  "oclif": {
-    "bin": "no-more-masters"
-  },
   "repository": "gjtorikian/no-more-masters",
   "scripts": {
     "posttest": "eslint .",
