@@ -6,7 +6,30 @@ const parseRepo = require("parse-repo");
 const util = require("util");
 
 class NoMoreMastersCommand extends Command {
+  async init() {
+    var defaultBranch = "production"
+    try {
+      defaultBranch = (await execa("git", ["config", "--get", "core.defaultBranch"])).stdout
+    } catch (e) {
+      if (e.exitCode !== 1) throw e
+    }
+
+    NoMoreMastersCommand.description =
+      `Use this script to rename your default Git branch from 'master' to '${defaultBranch}'`;
+
+    NoMoreMastersCommand.flags = {
+      version: flags.version({ char: "v" }),
+      help: flags.help({ char: "h" }),
+      branch: flags.string({
+        char: "b",
+        description: "The branch name to create",
+        default: defaultBranch,
+      }),
+    };    
+  }
+  
   async run() {
+    this.init();
     const { flags } = this.parse(NoMoreMastersCommand);
 
     // check branch
@@ -123,18 +146,5 @@ Here's what they said:\n${e}\n\n`);
     this.log(`\nAll done! PS: GitHub, drop ICE 🤗`);
   }
 }
-
-NoMoreMastersCommand.description =
-  "Use this script to rename your default Git branch from `master` to `production`";
-
-NoMoreMastersCommand.flags = {
-  version: flags.version({ char: "v" }),
-  help: flags.help({ char: "h" }),
-  branch: flags.string({
-    char: "b",
-    description: "The branch name to create",
-    default: "production",
-  }),
-};
 
 module.exports = NoMoreMastersCommand;
