@@ -26,7 +26,8 @@ class NoMoreMastersCommand extends Command {
       help: flags.help({ char: "h" }),
       branch: flags.string({
         char: "b",
-        description: "The branch name to create",
+        description:
+          "The branch name to create. If `core.defaultBranch` is set, the script uses that branch name as the default.",
         default: defaultBranch,
       }),
     };

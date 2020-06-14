@@ -30,3 +30,5 @@ OPTIONS
 5. `git push origin :master`: Removes `master` from your remote repository
 
     Note: this step will fail if branch protections are enabled
+
+If you have `core.defaultBranch` set, the script will use that branch name as its default.
