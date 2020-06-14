@@ -7,15 +7,19 @@ const util = require("util");
 
 class NoMoreMastersCommand extends Command {
   async init() {
-    var defaultBranch = "production"
+    var defaultBranch = "production";
     try {
-      defaultBranch = (await execa("git", ["config", "--get", "core.defaultBranch"])).stdout
-    } catch (e) {
-      if (e.exitCode !== 1) throw e
+      defaultBranch = (
+        await execa("git", ["config", "--get", "core.defaultBranch"])
+      ).stdout;
+    } catch (error) {
+      // config is not set, safe to ignore
+      if (error.exitCode !== 1) {
+        this.error(error);
+      }
     }
 
-    NoMoreMastersCommand.description =
-      `Use this script to rename your default Git branch from 'master' to '${defaultBranch}'`;
+    NoMoreMastersCommand.description = `Use this script to rename your default Git branch from 'master' to '${defaultBranch}'`;
 
     NoMoreMastersCommand.flags = {
       version: flags.version({ char: "v" }),
@@ -25,9 +29,9 @@ class NoMoreMastersCommand extends Command {
         description: "The branch name to create",
         default: defaultBranch,
       }),
-    };    
+    };
   }
-  
+
   async run() {
     this.init();
     const { flags } = this.parse(NoMoreMastersCommand);
