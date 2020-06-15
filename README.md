@@ -31,4 +31,10 @@ OPTIONS
 
     Note: this step will fail if branch protections are enabled
 
+## Configuration
+
 If you have `core.defaultBranch` set, the script will use that branch name as its default.
+
+GitHub API token can also be provided via environment variable `GITHUB_TOKEN`.
+
+
