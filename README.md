@@ -35,6 +35,6 @@ OPTIONS
 
 If you have `core.defaultBranch` set, the script will use that branch name as its default.
 
-GitHub API token can also be provided via environment variable `GITHUB_TOKEN`.
+A GitHub API token can also be provided via the `GITHUB_TOKEN` environment variable.
 
 

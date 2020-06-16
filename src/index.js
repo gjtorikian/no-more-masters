@@ -78,12 +78,13 @@ class NoMoreMastersCommand extends Command {
       return;
     }
 
-    const token = process.env.GITHUB_TOKEN ||
-      await cli.prompt("What is your GitHub API token?", {
+    const token =
+      process.env.GITHUB_TOKEN ||
+      (await cli.prompt("What is your GitHub API token?", {
         type: "hide",
-      });
+      }));
 
-    this.log("Fetching origin...");
+    this.log("\nFetching origin...");
     try {
       await execa("git", ["fetch", "origin"]);
     } catch (error) {
