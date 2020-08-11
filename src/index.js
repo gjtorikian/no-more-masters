@@ -7,7 +7,7 @@ const util = require("util");
 
 class NoMoreMastersCommand extends Command {
   async init() {
-    var defaultBranch = "production";
+    var defaultBranch = "main";
     try {
       defaultBranch = (
         await execa("git", ["config", "--get", "core.defaultBranch"])
