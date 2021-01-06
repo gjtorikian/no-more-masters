@@ -20,7 +20,7 @@
     "@oclif/config": "^1.15.1",
     "@oclif/plugin-help": "^3.1.0",
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cli-ux": "^5.4.6",
     "execa": "^4.0.2",
     "parse-repo": "^1.0.4"
